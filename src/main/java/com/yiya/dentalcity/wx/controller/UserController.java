@@ -42,7 +42,6 @@ public class UserController {
     @PostMapping("/register")
     @ApiOperation("注册用户")
     public R register(@Valid @RequestBody RegisterForm form){
-        System.out.println(form);
         int id=userService.registerUser(form.getCode(),form.getNickName(),form.getPhoto(),form.getUserName(),form.getPassword());
         String token=jwtUtil.createToken(id);
         // 将token存入redis

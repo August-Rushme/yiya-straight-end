@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
  * @author 战神
  */
 @Data
-@ApiModel
+@ApiModel(value = "RegisterForm", description = "注册表单")
 public class RegisterForm {
     @NotBlank(message = "用户名不能为空")
     private String userName;
