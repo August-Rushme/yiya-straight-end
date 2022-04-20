@@ -1,6 +1,9 @@
 package com.yiya.dentalcity.wx.controller;
 
 import com.yiya.dentalcity.wx.config.shiro.JwtUtil;
+import com.yiya.dentalcity.wx.domain.UserInfo;
+import com.yiya.dentalcity.wx.req.LoginByAccountForm;
+import com.yiya.dentalcity.wx.req.LoginByWXForm;
 import com.yiya.dentalcity.wx.req.RegisterForm;
 import com.yiya.dentalcity.wx.resp.R;
 import com.yiya.dentalcity.wx.service.UserService;
@@ -39,14 +42,32 @@ public class UserController {
     @PostMapping("/register")
     @ApiOperation("注册用户")
     public R register(@Valid @RequestBody RegisterForm form){
-        int id=userService.registerUser(form.getCode(),form.getNickName(),form.getPhoto());
+        System.out.println(form);
+        int id=userService.registerUser(form.getCode(),form.getNickName(),form.getPhoto(),form.getUserName(),form.getPassword());
         String token=jwtUtil.createToken(id);
         // 将token存入redis
         saveCacheToken(token,id);
         return R.ok("用户注册成功").put("token",token);
     }
+    @PostMapping("/loginByWx")
+    @ApiOperation("用户微信登录")
+    public R loginByWx(@Valid @RequestBody LoginByWXForm form){
+        UserInfo user = userService.loginByWx(form.getCode());
+        String token=jwtUtil.createToken(user.getId());
+        saveCacheToken(token,user.getId());
+        return R.ok("登陆成功").put("token",token).put("user",user);
+    }
+    @PostMapping("/loginByAccount")
+    @ApiOperation("用户账号登录")
+    public R loginByAccount(@Valid @RequestBody LoginByAccountForm form){
+        UserInfo user = userService.login(form);
+        String token=jwtUtil.createToken(user.getId());
+        saveCacheToken(token,user.getId());
+        return R.ok("登陆成功").put("token",token).put("user",user);
+    }
 
     private void saveCacheToken(String token,int userId){
         redisTemplate.opsForValue().set(token,userId+"",cacheExpire, TimeUnit.DAYS);
     }
+
 }

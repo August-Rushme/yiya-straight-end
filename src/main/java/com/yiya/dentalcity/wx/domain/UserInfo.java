@@ -7,6 +7,10 @@ public class UserInfo {
 
     private String openId;
 
+    private String userName;
+
+    private String password;
+
     private String nickname;
 
     private String photo;
@@ -29,7 +33,7 @@ public class UserInfo {
 
     private Integer age;
 
-    private String password;
+    private Date updateTime;
 
     private String role;
 
@@ -47,6 +51,22 @@ public class UserInfo {
 
     public void setOpenId(String openId) {
         this.openId = openId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getNickname() {
@@ -137,12 +157,12 @@ public class UserInfo {
         this.age = age;
     }
 
-    public String getPassword() {
-        return password;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public String getRole() {
@@ -161,6 +181,8 @@ public class UserInfo {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", openId=").append(openId);
+        sb.append(", userName=").append(userName);
+        sb.append(", password=").append(password);
         sb.append(", nickname=").append(nickname);
         sb.append(", photo=").append(photo);
         sb.append(", name=").append(name);
@@ -172,7 +194,7 @@ public class UserInfo {
         sb.append(", createTime=").append(createTime);
         sb.append(", address=").append(address);
         sb.append(", age=").append(age);
-        sb.append(", password=").append(password);
+        sb.append(", updateTime=").append(updateTime);
         sb.append(", role=").append(role);
         sb.append("]");
         return sb.toString();

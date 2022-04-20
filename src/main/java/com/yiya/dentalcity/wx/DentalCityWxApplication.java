@@ -14,6 +14,7 @@ import org.springframework.core.env.Environment;
 @SpringBootApplication
 @ServletComponentScan
 @MapperScan("com.yiya.dentalcity.wx.dao")
+
 public class DentalCityWxApplication {
     private static final Logger LOG = LoggerFactory.getLogger(DentalCityWxApplication.class);
     public static void main(String[] args) {

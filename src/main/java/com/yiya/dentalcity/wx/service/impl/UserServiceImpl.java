@@ -5,7 +5,9 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.yiya.dentalcity.wx.dao.UserInfoMapper;
 import com.yiya.dentalcity.wx.domain.UserInfo;
+import com.yiya.dentalcity.wx.domain.UserInfoExample;
 import com.yiya.dentalcity.wx.exception.BusinessException;
+import com.yiya.dentalcity.wx.req.LoginByAccountForm;
 import com.yiya.dentalcity.wx.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author 战神
@@ -57,19 +60,56 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public int registerUser( String code, String nickName, String photo) {
+    public int registerUser(String code, String nickName, String photo, String userName, String password) {
         // 注册用户
         String openId = getOpenId(code);
         UserInfo userInfo = new UserInfo();
         userInfo.setOpenId(openId);
         userInfo.setNickname(nickName);
+        userInfo.setUserName(userName);
+        userInfo.setPassword(password);
         userInfo.setPhoto(photo);
         userInfo.setCreateTime(new Date());
         userInfo.setRole("[0]");
         userInfo.setStatus(1);
         userInfo.setRoot(true);
+
         userInfoMapper.insertSelective(userInfo);
         int id=userInfoMapper.searchIdByOpenId(openId);
         return id;
+    }
+
+    @Override
+    public UserInfo getUser(LoginByAccountForm form) {
+        UserInfoExample userInfoExample = new UserInfoExample();
+        UserInfoExample.Criteria criteria = userInfoExample.createCriteria();
+        criteria.andUserNameEqualTo(form.getUserName());
+        List<UserInfo> userInfos = userInfoMapper.selectByExample(userInfoExample);
+        if (userInfos.size() == 0) {
+            throw new BusinessException("用户名不存在");
+        }
+        return  userInfos.get(0);
+}
+    @Override
+    public UserInfo login(LoginByAccountForm form) {
+        UserInfo userInfo = getUser(form);
+        System.out.println(userInfo.getPassword().equals(form.getPassword()));
+        if (userInfo.getPassword().equals(form.getPassword())){
+            return userInfo;
+        }else {
+            throw new BusinessException("帐户或密码错误");
+        }
+    }
+
+    @Override
+    public UserInfo loginByWx(String code) {
+        String openId=getOpenId(code);
+        Integer id=userInfoMapper.searchIdByOpenId(openId);
+        if(id==null){
+            throw new BusinessException("帐户不存在");
+        }else {
+            UserInfo userInfo = userInfoMapper.selectByPrimaryKey(id);
+            return userInfo;
+        }
     }
 }

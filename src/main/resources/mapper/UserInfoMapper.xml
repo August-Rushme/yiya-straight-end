@@ -4,6 +4,8 @@
   <resultMap id="BaseResultMap" type="com.yiya.dentalcity.wx.domain.UserInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
     <result column="photo" jdbcType="VARCHAR" property="photo" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -15,7 +17,7 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="age" jdbcType="INTEGER" property="age" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yiya.dentalcity.wx.domain.UserInfo">
     <result column="role" jdbcType="LONGVARCHAR" property="role" />
@@ -79,8 +81,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, open_id, nickname, photo, `name`, sex, tel, email, root, `status`, create_time, 
-    address, age, `password`
+    id, open_id, user_name, `password`, nickname, photo, `name`, sex, tel, email, root, 
+    `status`, create_time, address, age, update_time
   </sql>
   <sql id="Blob_Column_List">
     `role`
@@ -134,15 +136,17 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.yiya.dentalcity.wx.domain.UserInfo">
-    insert into user_info (id, open_id, nickname, 
-      photo, `name`, sex, tel, 
-      email, root, `status`, create_time, 
-      address, age, `password`, 
+    insert into user_info (id, open_id, user_name, 
+      `password`, nickname, photo, 
+      `name`, sex, tel, email, 
+      root, `status`, create_time, 
+      address, age, update_time, 
       `role`)
-    values (#{id,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
-      #{photo,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, #{tel,jdbcType=CHAR}, 
-      #{email,jdbcType=VARCHAR}, #{root,jdbcType=BIT}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{address,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, #{tel,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, 
+      #{root,jdbcType=BIT}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{address,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{role,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yiya.dentalcity.wx.domain.UserInfo">
@@ -153,6 +157,12 @@
       </if>
       <if test="openId != null">
         open_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="password != null">
+        `password`,
       </if>
       <if test="nickname != null">
         nickname,
@@ -187,8 +197,8 @@
       <if test="age != null">
         age,
       </if>
-      <if test="password != null">
-        `password`,
+      <if test="updateTime != null">
+        update_time,
       </if>
       <if test="role != null">
         `role`,
@@ -200,6 +210,12 @@
       </if>
       <if test="openId != null">
         #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
       </if>
       <if test="nickname != null">
         #{nickname,jdbcType=VARCHAR},
@@ -234,8 +250,8 @@
       <if test="age != null">
         #{age,jdbcType=INTEGER},
       </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="role != null">
         #{role,jdbcType=LONGVARCHAR},
@@ -256,6 +272,12 @@
       </if>
       <if test="record.openId != null">
         open_id = #{record.openId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        `password` = #{record.password,jdbcType=VARCHAR},
       </if>
       <if test="record.nickname != null">
         nickname = #{record.nickname,jdbcType=VARCHAR},
@@ -290,8 +312,8 @@
       <if test="record.age != null">
         age = #{record.age,jdbcType=INTEGER},
       </if>
-      <if test="record.password != null">
-        `password` = #{record.password,jdbcType=VARCHAR},
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.role != null">
         `role` = #{record.role,jdbcType=LONGVARCHAR},
@@ -305,6 +327,8 @@
     update user_info
     set id = #{record.id,jdbcType=INTEGER},
       open_id = #{record.openId,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      `password` = #{record.password,jdbcType=VARCHAR},
       nickname = #{record.nickname,jdbcType=VARCHAR},
       photo = #{record.photo,jdbcType=VARCHAR},
       `name` = #{record.name,jdbcType=VARCHAR},
@@ -316,7 +340,7 @@
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       address = #{record.address,jdbcType=VARCHAR},
       age = #{record.age,jdbcType=INTEGER},
-      `password` = #{record.password,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       `role` = #{record.role,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -326,6 +350,8 @@
     update user_info
     set id = #{record.id,jdbcType=INTEGER},
       open_id = #{record.openId,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      `password` = #{record.password,jdbcType=VARCHAR},
       nickname = #{record.nickname,jdbcType=VARCHAR},
       photo = #{record.photo,jdbcType=VARCHAR},
       `name` = #{record.name,jdbcType=VARCHAR},
@@ -337,7 +363,7 @@
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       address = #{record.address,jdbcType=VARCHAR},
       age = #{record.age,jdbcType=INTEGER},
-      `password` = #{record.password,jdbcType=VARCHAR}
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -347,6 +373,12 @@
     <set>
       <if test="openId != null">
         open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
       </if>
       <if test="nickname != null">
         nickname = #{nickname,jdbcType=VARCHAR},
@@ -381,8 +413,8 @@
       <if test="age != null">
         age = #{age,jdbcType=INTEGER},
       </if>
-      <if test="password != null">
-        `password` = #{password,jdbcType=VARCHAR},
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="role != null">
         `role` = #{role,jdbcType=LONGVARCHAR},
@@ -393,6 +425,8 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yiya.dentalcity.wx.domain.UserInfo">
     update user_info
     set open_id = #{openId,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
       photo = #{photo,jdbcType=VARCHAR},
       `name` = #{name,jdbcType=VARCHAR},
@@ -404,13 +438,15 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       address = #{address,jdbcType=VARCHAR},
       age = #{age,jdbcType=INTEGER},
-      `password` = #{password,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
       `role` = #{role,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yiya.dentalcity.wx.domain.UserInfo">
     update user_info
     set open_id = #{openId,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
       photo = #{photo,jdbcType=VARCHAR},
       `name` = #{name,jdbcType=VARCHAR},
@@ -422,15 +458,14 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       address = #{address,jdbcType=VARCHAR},
       age = #{age,jdbcType=INTEGER},
-      `password` = #{password,jdbcType=VARCHAR}
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
   <select id="haveRootUser" resultType="boolean">
-    SELECT IF(COUNT(*),TRUE,FALSE) FROM tb_user WHERE root=1;
+    SELECT IF(COUNT(*),TRUE,FALSE) FROM user_info WHERE root=1;
   </select>
   <select id="searchIdByOpenId" parameterType="String" resultType="Integer">
-    SELECT id FROM tb_user WHERE open_id=#{openId} AND status = 1
+    SELECT id FROM user_info WHERE open_id=#{openId} AND status = 1
   </select>
-
 </mapper>
