@@ -653,6 +653,146 @@ public class ClinicListExample {
             addCriterion("rate not between", value1, value2, "rate");
             return (Criteria) this;
         }
+
+        public Criteria andImg2IsNull() {
+            addCriterion("img2 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2IsNotNull() {
+            addCriterion("img2 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2EqualTo(String value) {
+            addCriterion("img2 =", value, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2NotEqualTo(String value) {
+            addCriterion("img2 <>", value, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2GreaterThan(String value) {
+            addCriterion("img2 >", value, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2GreaterThanOrEqualTo(String value) {
+            addCriterion("img2 >=", value, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2LessThan(String value) {
+            addCriterion("img2 <", value, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2LessThanOrEqualTo(String value) {
+            addCriterion("img2 <=", value, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2Like(String value) {
+            addCriterion("img2 like", value, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2NotLike(String value) {
+            addCriterion("img2 not like", value, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2In(List<String> values) {
+            addCriterion("img2 in", values, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2NotIn(List<String> values) {
+            addCriterion("img2 not in", values, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2Between(String value1, String value2) {
+            addCriterion("img2 between", value1, value2, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2NotBetween(String value1, String value2) {
+            addCriterion("img2 not between", value1, value2, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andBannerIsNull() {
+            addCriterion("banner is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBannerIsNotNull() {
+            addCriterion("banner is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBannerEqualTo(String value) {
+            addCriterion("banner =", value, "banner");
+            return (Criteria) this;
+        }
+
+        public Criteria andBannerNotEqualTo(String value) {
+            addCriterion("banner <>", value, "banner");
+            return (Criteria) this;
+        }
+
+        public Criteria andBannerGreaterThan(String value) {
+            addCriterion("banner >", value, "banner");
+            return (Criteria) this;
+        }
+
+        public Criteria andBannerGreaterThanOrEqualTo(String value) {
+            addCriterion("banner >=", value, "banner");
+            return (Criteria) this;
+        }
+
+        public Criteria andBannerLessThan(String value) {
+            addCriterion("banner <", value, "banner");
+            return (Criteria) this;
+        }
+
+        public Criteria andBannerLessThanOrEqualTo(String value) {
+            addCriterion("banner <=", value, "banner");
+            return (Criteria) this;
+        }
+
+        public Criteria andBannerLike(String value) {
+            addCriterion("banner like", value, "banner");
+            return (Criteria) this;
+        }
+
+        public Criteria andBannerNotLike(String value) {
+            addCriterion("banner not like", value, "banner");
+            return (Criteria) this;
+        }
+
+        public Criteria andBannerIn(List<String> values) {
+            addCriterion("banner in", values, "banner");
+            return (Criteria) this;
+        }
+
+        public Criteria andBannerNotIn(List<String> values) {
+            addCriterion("banner not in", values, "banner");
+            return (Criteria) this;
+        }
+
+        public Criteria andBannerBetween(String value1, String value2) {
+            addCriterion("banner between", value1, value2, "banner");
+            return (Criteria) this;
+        }
+
+        public Criteria andBannerNotBetween(String value1, String value2) {
+            addCriterion("banner not between", value1, value2, "banner");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

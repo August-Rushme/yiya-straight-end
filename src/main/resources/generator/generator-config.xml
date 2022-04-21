@@ -43,11 +43,10 @@
         <javaClientGenerator targetProject="src\main\java"
                              targetPackage="com.yiya.dentalcity.wx.dao"
                              type="XMLMAPPER"/>
-<!--        <table tableName="user_info"/>-->
-        <table tableName="clinic_list"/>
-
-
-
+        <!--        <table tableName="user_info"/>-->
+        <!--        <table tableName="clinic_list"/>-->
+        <!--        <table tableName="doctor"/>-->
+        <table tableName="appointment"/>
 
     </context>
 </generatorConfiguration>

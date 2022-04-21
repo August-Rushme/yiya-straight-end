@@ -1,5 +1,7 @@
 package com.yiya.dentalcity.wx.domain;
 
+import java.util.List;
+
 public class ClinicList {
     private Integer id;
 
@@ -16,6 +18,13 @@ public class ClinicList {
     private String img;
 
     private String rate;
+
+    private String img2;
+
+    private String banner;
+
+    private List<Doctor> doctorList;
+
 
     public Integer getId() {
         return id;
@@ -81,21 +90,44 @@ public class ClinicList {
         this.rate = rate;
     }
 
+    public String getImg2() {
+        return img2;
+    }
+
+    public void setImg2(String img2) {
+        this.img2 = img2;
+    }
+
+    public String getBanner() {
+        return banner;
+    }
+
+    public void setBanner(String banner) {
+        this.banner = banner;
+    }
+
+    public List<Doctor> getDoctorList() {
+        return doctorList;
+    }
+
+    public void setDoctorList(List<Doctor> doctorList) {
+        this.doctorList = doctorList;
+    }
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", name=").append(name);
-        sb.append(", address=").append(address);
-        sb.append(", detailedAddress=").append(detailedAddress);
-        sb.append(", label=").append(label);
-        sb.append(", scope=").append(scope);
-        sb.append(", img=").append(img);
-        sb.append(", rate=").append(rate);
-        sb.append("]");
-        return sb.toString();
+        return "ClinicList{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", detailedAddress='" + detailedAddress + '\'' +
+                ", label='" + label + '\'' +
+                ", scope='" + scope + '\'' +
+                ", img='" + img + '\'' +
+                ", rate='" + rate + '\'' +
+                ", img2='" + img2 + '\'' +
+                ", banner='" + banner + '\'' +
+                ", doctorList=" + doctorList +
+                '}';
     }
 }

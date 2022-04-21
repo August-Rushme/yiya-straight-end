@@ -10,6 +10,8 @@
     <result column="scope" jdbcType="VARCHAR" property="scope" />
     <result column="img" jdbcType="VARCHAR" property="img" />
     <result column="rate" jdbcType="VARCHAR" property="rate" />
+    <result column="img2" jdbcType="VARCHAR" property="img2" />
+    <result column="banner" jdbcType="VARCHAR" property="banner" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, `name`, address, detailed_address, `label`, `scope`, img, rate
+    id, `name`, address, detailed_address, `label`, `scope`, img, rate, img2, banner
   </sql>
   <select id="selectByExample" parameterType="com.yiya.dentalcity.wx.domain.ClinicListExample" resultMap="BaseResultMap">
     select
@@ -105,10 +107,12 @@
   <insert id="insert" parameterType="com.yiya.dentalcity.wx.domain.ClinicList">
     insert into clinic_list (id, `name`, address, 
       detailed_address, `label`, `scope`, 
-      img, rate)
+      img, rate, img2, banner
+      )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{detailedAddress,jdbcType=VARCHAR}, #{label,jdbcType=VARCHAR}, #{scope,jdbcType=VARCHAR}, 
-      #{img,jdbcType=VARCHAR}, #{rate,jdbcType=VARCHAR})
+      #{img,jdbcType=VARCHAR}, #{rate,jdbcType=VARCHAR}, #{img2,jdbcType=VARCHAR}, #{banner,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.yiya.dentalcity.wx.domain.ClinicList">
     insert into clinic_list
@@ -137,6 +141,12 @@
       <if test="rate != null">
         rate,
       </if>
+      <if test="img2 != null">
+        img2,
+      </if>
+      <if test="banner != null">
+        banner,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -162,6 +172,12 @@
       </if>
       <if test="rate != null">
         #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="img2 != null">
+        #{img2,jdbcType=VARCHAR},
+      </if>
+      <if test="banner != null">
+        #{banner,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -198,6 +214,12 @@
       <if test="record.rate != null">
         rate = #{record.rate,jdbcType=VARCHAR},
       </if>
+      <if test="record.img2 != null">
+        img2 = #{record.img2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.banner != null">
+        banner = #{record.banner,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -212,7 +234,9 @@
       `label` = #{record.label,jdbcType=VARCHAR},
       `scope` = #{record.scope,jdbcType=VARCHAR},
       img = #{record.img,jdbcType=VARCHAR},
-      rate = #{record.rate,jdbcType=VARCHAR}
+      rate = #{record.rate,jdbcType=VARCHAR},
+      img2 = #{record.img2,jdbcType=VARCHAR},
+      banner = #{record.banner,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,6 +265,12 @@
       <if test="rate != null">
         rate = #{rate,jdbcType=VARCHAR},
       </if>
+      <if test="img2 != null">
+        img2 = #{img2,jdbcType=VARCHAR},
+      </if>
+      <if test="banner != null">
+        banner = #{banner,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -252,7 +282,9 @@
       `label` = #{label,jdbcType=VARCHAR},
       `scope` = #{scope,jdbcType=VARCHAR},
       img = #{img,jdbcType=VARCHAR},
-      rate = #{rate,jdbcType=VARCHAR}
+      rate = #{rate,jdbcType=VARCHAR},
+      img2 = #{img2,jdbcType=VARCHAR},
+      banner = #{banner,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

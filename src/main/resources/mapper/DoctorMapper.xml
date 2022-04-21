@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yiya.dentalcity.wx.dao.DoctorMapper">
+  <resultMap id="BaseResultMap" type="com.yiya.dentalcity.wx.domain.Doctor">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="work_years" jdbcType="INTEGER" property="workYears" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="profession" jdbcType="VARCHAR" property="profession" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="clinic_name" jdbcType="VARCHAR" property="clinicName" />
+    <result column="clinic_id" jdbcType="INTEGER" property="clinicId" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="goot_at" jdbcType="VARCHAR" property="gootAt" />
+    <result column="profile" jdbcType="VARCHAR" property="profile" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, `name`, age, work_years, gender, profession, title, clinic_name, clinic_id, avatar, 
+    goot_at, profile
+  </sql>
+  <select id="selectByExample" parameterType="com.yiya.dentalcity.wx.domain.DoctorExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from doctor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from doctor
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from doctor
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yiya.dentalcity.wx.domain.DoctorExample">
+    delete from doctor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yiya.dentalcity.wx.domain.Doctor">
+    insert into doctor (id, `name`, age, 
+      work_years, gender, profession, 
+      title, clinic_name, clinic_id, 
+      avatar, goot_at, profile
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
+      #{workYears,jdbcType=INTEGER}, #{gender,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{clinicName,jdbcType=VARCHAR}, #{clinicId,jdbcType=INTEGER}, 
+      #{avatar,jdbcType=VARCHAR}, #{gootAt,jdbcType=VARCHAR}, #{profile,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yiya.dentalcity.wx.domain.Doctor">
+    insert into doctor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="workYears != null">
+        work_years,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="profession != null">
+        profession,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="clinicName != null">
+        clinic_name,
+      </if>
+      <if test="clinicId != null">
+        clinic_id,
+      </if>
+      <if test="avatar != null">
+        avatar,
+      </if>
+      <if test="gootAt != null">
+        goot_at,
+      </if>
+      <if test="profile != null">
+        profile,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="workYears != null">
+        #{workYears,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null">
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="clinicName != null">
+        #{clinicName,jdbcType=VARCHAR},
+      </if>
+      <if test="clinicId != null">
+        #{clinicId,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="gootAt != null">
+        #{gootAt,jdbcType=VARCHAR},
+      </if>
+      <if test="profile != null">
+        #{profile,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yiya.dentalcity.wx.domain.DoctorExample" resultType="java.lang.Long">
+    select count(*) from doctor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update doctor
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        `name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.age != null">
+        age = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.workYears != null">
+        work_years = #{record.workYears,jdbcType=INTEGER},
+      </if>
+      <if test="record.gender != null">
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.profession != null">
+        profession = #{record.profession,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clinicName != null">
+        clinic_name = #{record.clinicName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clinicId != null">
+        clinic_id = #{record.clinicId,jdbcType=INTEGER},
+      </if>
+      <if test="record.avatar != null">
+        avatar = #{record.avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gootAt != null">
+        goot_at = #{record.gootAt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.profile != null">
+        profile = #{record.profile,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update doctor
+    set id = #{record.id,jdbcType=INTEGER},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      age = #{record.age,jdbcType=INTEGER},
+      work_years = #{record.workYears,jdbcType=INTEGER},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      profession = #{record.profession,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      clinic_name = #{record.clinicName,jdbcType=VARCHAR},
+      clinic_id = #{record.clinicId,jdbcType=INTEGER},
+      avatar = #{record.avatar,jdbcType=VARCHAR},
+      goot_at = #{record.gootAt,jdbcType=VARCHAR},
+      profile = #{record.profile,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yiya.dentalcity.wx.domain.Doctor">
+    update doctor
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="workYears != null">
+        work_years = #{workYears,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null">
+        profession = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="clinicName != null">
+        clinic_name = #{clinicName,jdbcType=VARCHAR},
+      </if>
+      <if test="clinicId != null">
+        clinic_id = #{clinicId,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="gootAt != null">
+        goot_at = #{gootAt,jdbcType=VARCHAR},
+      </if>
+      <if test="profile != null">
+        profile = #{profile,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yiya.dentalcity.wx.domain.Doctor">
+    update doctor
+    set `name` = #{name,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      work_years = #{workYears,jdbcType=INTEGER},
+      gender = #{gender,jdbcType=VARCHAR},
+      profession = #{profession,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      clinic_name = #{clinicName,jdbcType=VARCHAR},
+      clinic_id = #{clinicId,jdbcType=INTEGER},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      goot_at = #{gootAt,jdbcType=VARCHAR},
+      profile = #{profile,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
