@@ -11,6 +11,7 @@ public class Appointment {
 
     private String gender;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date birthday;
 
     private String phone;

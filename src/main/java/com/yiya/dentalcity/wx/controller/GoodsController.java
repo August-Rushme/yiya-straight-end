@@ -29,7 +29,7 @@ public class GoodsController {
      */
     @PostMapping("/getClinic")
     @ApiOperation("获取诊所列表")
-    public R getGoods(GetClinicForm form) {
+    public R getGoods(@RequestBody GetClinicForm form) {
         PageResp<ClinicList> clinicList = goodsService.getClinicList(form);
         return R.ok().put("data", clinicList);
     }

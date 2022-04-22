@@ -25,6 +25,15 @@ public class ClinicList {
 
     private List<Doctor> doctorList;
 
+    private List newScope;
+
+    public List getNewScope() {
+        return newScope;
+    }
+
+    public void setNewScope(List newScope) {
+        this.newScope = newScope;
+    }
 
     public Integer getId() {
         return id;
