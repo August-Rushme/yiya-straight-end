@@ -1,5 +1,7 @@
 package com.yiya.dentalcity.wx.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Appointment {
@@ -9,12 +11,13 @@ public class Appointment {
 
     private String gender;
 
-    private Integer age;
+    private Date birthday;
 
     private String phone;
 
     private String project;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Date appointmentTime;
 
     private String desc;
@@ -26,6 +29,8 @@ public class Appointment {
     private Integer userId;
 
     private String mark;
+
+    private String status;
 
     public Integer getId() {
         return id;
@@ -51,12 +56,12 @@ public class Appointment {
         this.gender = gender;
     }
 
-    public Integer getAge() {
-        return age;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public String getPhone() {
@@ -123,6 +128,14 @@ public class Appointment {
         this.mark = mark;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -132,7 +145,7 @@ public class Appointment {
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
         sb.append(", gender=").append(gender);
-        sb.append(", age=").append(age);
+        sb.append(", birthday=").append(birthday);
         sb.append(", phone=").append(phone);
         sb.append(", project=").append(project);
         sb.append(", appointmentTime=").append(appointmentTime);
@@ -141,6 +154,7 @@ public class Appointment {
         sb.append(", doctor=").append(doctor);
         sb.append(", userId=").append(userId);
         sb.append(", mark=").append(mark);
+        sb.append(", status=").append(status);
         sb.append("]");
         return sb.toString();
     }

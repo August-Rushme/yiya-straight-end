@@ -5,7 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="gender" jdbcType="VARCHAR" property="gender" />
-    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="project" jdbcType="VARCHAR" property="project" />
     <result column="appointment_time" jdbcType="TIMESTAMP" property="appointmentTime" />
@@ -14,6 +14,7 @@
     <result column="doctor" jdbcType="VARCHAR" property="doctor" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="mark" jdbcType="VARCHAR" property="mark" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -74,8 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, `name`, gender, age, phone, project, appointment_time, `desc`, clinic, doctor, 
-    user_id, mark
+    id, `name`, gender, birthday, phone, project, appointment_time, `desc`, clinic, doctor, 
+    user_id, mark, `status`
   </sql>
   <select id="selectByExample" parameterType="com.yiya.dentalcity.wx.domain.AppointmentExample" resultMap="BaseResultMap">
     select
@@ -109,15 +110,15 @@
   </delete>
   <insert id="insert" parameterType="com.yiya.dentalcity.wx.domain.Appointment">
     insert into appointment (id, `name`, gender, 
-      age, phone, project, 
+      birthday, phone, project, 
       appointment_time, `desc`, clinic, 
-      doctor, user_id, mark
-      )
+      doctor, user_id, mark, 
+      `status`)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
-      #{age,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{project,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=TIMESTAMP}, #{phone,jdbcType=VARCHAR}, #{project,jdbcType=VARCHAR}, 
       #{appointmentTime,jdbcType=TIMESTAMP}, #{desc,jdbcType=VARCHAR}, #{clinic,jdbcType=VARCHAR}, 
-      #{doctor,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{mark,jdbcType=VARCHAR}
-      )
+      #{doctor,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{mark,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yiya.dentalcity.wx.domain.Appointment">
     insert into appointment
@@ -131,8 +132,8 @@
       <if test="gender != null">
         gender,
       </if>
-      <if test="age != null">
-        age,
+      <if test="birthday != null">
+        birthday,
       </if>
       <if test="phone != null">
         phone,
@@ -158,6 +159,9 @@
       <if test="mark != null">
         mark,
       </if>
+      <if test="status != null">
+        `status`,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -169,8 +173,8 @@
       <if test="gender != null">
         #{gender,jdbcType=VARCHAR},
       </if>
-      <if test="age != null">
-        #{age,jdbcType=INTEGER},
+      <if test="birthday != null">
+        #{birthday,jdbcType=TIMESTAMP},
       </if>
       <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
@@ -196,6 +200,9 @@
       <if test="mark != null">
         #{mark,jdbcType=VARCHAR},
       </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.yiya.dentalcity.wx.domain.AppointmentExample" resultType="java.lang.Long">
@@ -216,8 +223,8 @@
       <if test="record.gender != null">
         gender = #{record.gender,jdbcType=VARCHAR},
       </if>
-      <if test="record.age != null">
-        age = #{record.age,jdbcType=INTEGER},
+      <if test="record.birthday != null">
+        birthday = #{record.birthday,jdbcType=TIMESTAMP},
       </if>
       <if test="record.phone != null">
         phone = #{record.phone,jdbcType=VARCHAR},
@@ -243,6 +250,9 @@
       <if test="record.mark != null">
         mark = #{record.mark,jdbcType=VARCHAR},
       </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -253,7 +263,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       `name` = #{record.name,jdbcType=VARCHAR},
       gender = #{record.gender,jdbcType=VARCHAR},
-      age = #{record.age,jdbcType=INTEGER},
+      birthday = #{record.birthday,jdbcType=TIMESTAMP},
       phone = #{record.phone,jdbcType=VARCHAR},
       project = #{record.project,jdbcType=VARCHAR},
       appointment_time = #{record.appointmentTime,jdbcType=TIMESTAMP},
@@ -261,7 +271,8 @@
       clinic = #{record.clinic,jdbcType=VARCHAR},
       doctor = #{record.doctor,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=INTEGER},
-      mark = #{record.mark,jdbcType=VARCHAR}
+      mark = #{record.mark,jdbcType=VARCHAR},
+      `status` = #{record.status,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -275,8 +286,8 @@
       <if test="gender != null">
         gender = #{gender,jdbcType=VARCHAR},
       </if>
-      <if test="age != null">
-        age = #{age,jdbcType=INTEGER},
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=TIMESTAMP},
       </if>
       <if test="phone != null">
         phone = #{phone,jdbcType=VARCHAR},
@@ -302,6 +313,9 @@
       <if test="mark != null">
         mark = #{mark,jdbcType=VARCHAR},
       </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -309,7 +323,7 @@
     update appointment
     set `name` = #{name,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=VARCHAR},
-      age = #{age,jdbcType=INTEGER},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
       phone = #{phone,jdbcType=VARCHAR},
       project = #{project,jdbcType=VARCHAR},
       appointment_time = #{appointmentTime,jdbcType=TIMESTAMP},
@@ -317,7 +331,8 @@
       clinic = #{clinic,jdbcType=VARCHAR},
       doctor = #{doctor,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=INTEGER},
-      mark = #{mark,jdbcType=VARCHAR}
+      mark = #{mark,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

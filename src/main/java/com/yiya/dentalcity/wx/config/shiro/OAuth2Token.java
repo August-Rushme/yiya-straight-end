@@ -1,5 +1,6 @@
 package com.yiya.dentalcity.wx.config.shiro;
 
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 
 /**

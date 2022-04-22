@@ -2,7 +2,9 @@ package com.yiya.dentalcity.wx.dao;
 
 import com.yiya.dentalcity.wx.domain.UserInfo;
 import com.yiya.dentalcity.wx.domain.UserInfoExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface UserInfoMapper {
@@ -37,4 +39,6 @@ public interface UserInfoMapper {
     boolean haveRootUser();
 
     Integer searchIdByOpenId(String openId);
+
+    UserInfo searchById(int userId);
 }

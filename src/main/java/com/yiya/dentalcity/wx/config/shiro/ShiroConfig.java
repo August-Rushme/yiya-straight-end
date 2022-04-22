@@ -20,23 +20,23 @@ import java.util.Map;
 public class ShiroConfig {
 
     @Bean("securityManager")
-    public SecurityManager securityManager(OAuth2Realm realm){
-        DefaultWebSecurityManager securityManager=new DefaultWebSecurityManager();
+    public SecurityManager securityManager(OAuth2Realm realm) {
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(realm);
         securityManager.setRememberMeManager(null);
         return securityManager;
     }
 
     @Bean("shiroFilter")
-    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager,OAuth2Filter filter){
-        ShiroFilterFactoryBean shiroFilter=new ShiroFilterFactoryBean();
+    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager, OAuth2Filter filter) {
+        ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
         shiroFilter.setSecurityManager(securityManager);
 
-        Map<String , Filter> map=new HashMap<>();
-        map.put("oauth2",filter);
+        Map<String, Filter> map = new HashMap<>();
+        map.put("oauth2", filter);
         shiroFilter.setFilters(map);
         // 拦截器
-        Map<String,String> filterMap=new LinkedHashMap<>();
+        Map<String, String> filterMap = new LinkedHashMap<>();
         filterMap.put("/webjars/**", "anon");
         filterMap.put("/druid/**", "anon");
         filterMap.put("/app/**", "anon");
@@ -50,6 +50,7 @@ public class ShiroConfig {
         filterMap.put("/test/**", "anon");
         filterMap.put("/user/loginByWx", "anon");
         filterMap.put("/goods/**", "anon");
+        filterMap.put("/appointment/**", "anon");
         filterMap.put("/**", "oauth2");
 
 
@@ -59,13 +60,13 @@ public class ShiroConfig {
     }
 
     @Bean("lifecycleBeanPostProcessor")
-    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
+    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
         return new LifecycleBeanPostProcessor();
     }
 
     @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager){
-        AuthorizationAttributeSourceAdvisor advisor=new AuthorizationAttributeSourceAdvisor();
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
+        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
         advisor.setSecurityManager(securityManager);
         return advisor;
     }

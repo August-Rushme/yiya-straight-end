@@ -1,11 +1,17 @@
 package com.yiya.dentalcity.wx.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.yiya.dentalcity.wx.dao.AppointmentMapper;
 import com.yiya.dentalcity.wx.domain.Appointment;
+import com.yiya.dentalcity.wx.domain.AppointmentExample;
+import com.yiya.dentalcity.wx.req.AppointmentForm;
+import com.yiya.dentalcity.wx.resp.PageResp;
 import com.yiya.dentalcity.wx.service.AppointmentService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author 战神
@@ -22,9 +28,17 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public Appointment selectAppointment(Appointment appointment) {
-        return null;
+    public PageResp<Appointment> getAppointmentByUserId(AppointmentForm form) {
+        AppointmentExample appointmentExample = new AppointmentExample();
+        appointmentExample.createCriteria().andUserIdEqualTo(form.getUserId());
+        Page<Object> page = PageHelper.startPage(form.getPageNum(), form.getPageSize());
+        List<Appointment> appointments = appointmentMapper.selectByExample(appointmentExample);
+        PageResp<Appointment> pageResp = new PageResp<>();
+        pageResp.setList(appointments);
+        pageResp.setTotal(page.getTotal());
+        return pageResp;
     }
+
 
     @Override
     public Appointment updateAppointment(Appointment appointment) {

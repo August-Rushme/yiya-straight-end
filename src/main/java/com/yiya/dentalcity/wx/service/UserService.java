@@ -9,6 +9,7 @@ import com.yiya.dentalcity.wx.req.LoginByAccountForm;
 public interface UserService {
     /**
      * 注册用户
+     *
      * @param code
      * @param nickName
      * @param photo
@@ -18,6 +19,7 @@ public interface UserService {
 
     /**
      * 登录
+     *
      * @param form
      * @return
      */
@@ -26,5 +28,8 @@ public interface UserService {
     public UserInfo loginByWx(String code);
 
     public UserInfo getUser(LoginByAccountForm form);
+
+    public UserInfo searchById(int userId);
+
 
 }
